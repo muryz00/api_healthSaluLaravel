@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Medico extends Model
+{
+    protected $fillable = [
+        'nome',
+        'cpf',
+        'email',
+        'telefone',
+        'senha',
+        'crm',
+        'especialidade'
+    ];
+
+    protected $hidden = ['senha'];
+}
