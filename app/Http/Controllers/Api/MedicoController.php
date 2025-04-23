@@ -57,7 +57,7 @@ class MedicoController extends Controller
         return response()->json(['mensagem' => 'Médico atualizado com sucesso', 'medico' => $medico]);
     }
 
-    public function consultar($id = null)
+    public function consultar($id)
     {
         if ($id) {
             

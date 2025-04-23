@@ -6,11 +6,11 @@ return [
 
     'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE'],
 
-    'allowed_origins' => ['http://172.28.240.1:8001/'],
+    'allowed_origins' => ['http://localhost:8001/'],
 
     'allowed_origins_patterns' => ['Content-Type', 'X-Requested-With', 'Authorization'],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['Access-Control-Allow-Origin', 'Content-Type', 'X-Requested-With', 'Authorization'],
 
     'exposed_headers' => [],
 
