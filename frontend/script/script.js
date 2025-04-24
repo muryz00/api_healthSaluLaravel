@@ -2,35 +2,47 @@ document.getElementById('testApi').addEventListener('click', async () => {
     const responseElement = document.getElementById('response');
     responseElement.textContent = 'Carregando...';
 
+    const medico = {
+        "nome": "Dr. Exemplo",
+        "email": "dr.exemplo@clinica.com",
+        "senha": "senhaSegura123",
+        "cpf": "12345678901",
+        "crm": "CRM/SP123456",
+        "telefone": "11999999999",  // opcional
+        "especialidade": "Cardiologia"  // opcional
+    };
+
     try {
-    console.log('Iniciando requisição...');
-
-    const response = await axios.post("http://127.0.0.1:8000/medico/cadastrar");
-    console.log(response);
-
-    if (!response.ok) {
-            throw new Error(`Erro: ${response.status} - ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        responseElement.textContent = JSON.stringify(data, null, 2);
-    
-    
-    /*const response = await fetch('http://127.0.0.1:8000/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
-
-        console.log(response)
-
+        console.log('Iniciando requisição...');
         
-        */
-        console.log("test");
-        
+        const response = await axios.post(
+            "http://127.0.0.1:8000/api/medicos/cadastrar", 
+            medico,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }
+        );
+
+        responseElement.textContent = JSON.stringify(response.data, null, 2);
+        console.log("Resposta recebida:", response.data);
+
     } catch (error) {
-         console.log(error)
-        responseElement.textContent = `Erro ao buscar a API: ${error.message}`;
+        console.error("Erro completo:", error);
+        
+        let errorMessage = `Erro: ${error.message}`;
+        
+        if (error.response) {
+            // Se o servidor respondeu com um status de erro
+            errorMessage += `\nStatus: ${error.response.status}`;
+            
+            if (error.response.data) {
+                errorMessage += `\nErros: ${JSON.stringify(error.response.data, null, 2)}`;
+            }
+        }
+        
+        responseElement.textContent = errorMessage;
     }
 });
